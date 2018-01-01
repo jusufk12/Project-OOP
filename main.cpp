@@ -10,7 +10,11 @@ int main()
 
     Ordination ord;
     Dentist dentist1("jsdv", "sss", "ddd", 1234);
+    Dentist dentist2("jsdv", "sss", "ddd", 1234);
+
     ord.addDentist(&dentist1);
+    ord.addDentist(&dentist1);
+
     ord.showDentists();
     Patient p("jsdv", "sss", "ddd", 1234);
 

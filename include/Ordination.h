@@ -11,6 +11,7 @@ class Ordination
         virtual ~Ordination();
         void addDentist(Dentist* d);
         void showDentists();
+        bool hasDentist(Dentist* d);
 
     protected:
 
