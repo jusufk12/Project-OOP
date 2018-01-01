@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1514815866 source:c:\users\kanita\desktop\project-oop\main.cpp
+1514816495 source:c:\users\kanita\desktop\project-oop\main.cpp
 	<iostream>
 	<Ordination.h>
 	<Dentist.h>
@@ -18,12 +18,14 @@
 	<string>
 	"Person.h"
 
-1514812925 c:\users\kanita\desktop\project-oop\include\patient.h
+1514816544 c:\users\kanita\desktop\project-oop\include\patient.h
+	<string>
+	"Person.h"
 
 1514816301 source:c:\users\kanita\desktop\project-oop\src\dentist.cpp
 	"Dentist.h"
 
-1514812758 source:c:\users\kanita\desktop\project-oop\src\patient.cpp
+1514816495 source:c:\users\kanita\desktop\project-oop\src\patient.cpp
 	"Patient.h"
 
 1514814918 c:\users\kanita\desktop\project-oop\include\person.h

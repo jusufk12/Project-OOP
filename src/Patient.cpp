@@ -1,8 +1,9 @@
 #include "Patient.h"
 
-Patient::Patient()
+
+Patient::Patient(std::string name, std::string surname,std::string mail, int phoneNum)
+:Person(name, surname, mail, phoneNum)
 {
-    //ctor
 }
 
 Patient::~Patient()

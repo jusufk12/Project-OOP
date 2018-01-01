@@ -1,11 +1,13 @@
 #ifndef PATIENT_H
 #define PATIENT_H
+#include <string>
+#include "Person.h"
 
 
-class Patient
+class Patient: public Person
 {
     public:
-        Patient();
+        Patient(std::string name, std::string surname, std::string mail, int phoneNum);
         virtual ~Patient();
 
     protected:
