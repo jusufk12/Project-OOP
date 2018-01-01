@@ -1,16 +1,11 @@
 #include "Dentist.h"
-
-Dentist::Dentist(std::string _n)
+Dentist::Dentist(std::string name, std::string surname,std::string mail, int phoneNum)
+:Person(name, surname, mail, phoneNum)
 {
-  name = _n;
 }
+
+
 
 Dentist::~Dentist()
 {
-    //dtor
-}
-
-std::string Dentist::getName()
-{
-    return name;
 }

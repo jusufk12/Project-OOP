@@ -8,10 +8,9 @@ int main()
 {
 
     Ordination ord;
-    Dentist dentist1("jsdv");
-    Dentist dentist2("dfsds");
+    Dentist dentist1("jsdv", "sss", "ddd", 1234);
     ord.addDentist(&dentist1);
-    ord.addDentist(&dentist2);
+    //ord.addDentist(&dentist2);
     ord.showDentists();
 
 
