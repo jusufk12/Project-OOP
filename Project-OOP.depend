@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1514813824 source:c:\users\kanita\desktop\project-oop\main.cpp
+	<iostream>
+	<Ordination.h>
+	<Dentist.h>
+
+1514813923 c:\users\kanita\desktop\project-oop\include\ordination.h
+	<vector>
+	"Dentist.h"
+	<iostream>
+
+1514813774 source:c:\users\kanita\desktop\project-oop\src\ordination.cpp
+	"Ordination.h"
+
+1514813723 c:\users\kanita\desktop\project-oop\include\dentist.h
+	<vector>
+	"Patient.h"
+	<string>
+
+1514812925 c:\users\kanita\desktop\project-oop\include\patient.h
+
+1514813723 source:c:\users\kanita\desktop\project-oop\src\dentist.cpp
+	"Dentist.h"
+
+1514812758 source:c:\users\kanita\desktop\project-oop\src\patient.cpp
+	"Patient.h"
+
