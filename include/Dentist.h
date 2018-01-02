@@ -15,6 +15,8 @@ class Dentist: public Person
         bool hasPatient(Patient* p);
         void addPatient(Patient* p);
         void showPatients();
+        void addRequest(Patient* p);
+        void writeMedicalRecord();
 
 
 
@@ -24,6 +26,7 @@ class Dentist: public Person
     private:
 
         std::vector <Patient*> _patients;
+        std::vector <Patient*> _requests;
 };
 
 #endif // DENTIST_H

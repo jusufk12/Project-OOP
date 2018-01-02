@@ -2,9 +2,8 @@
 Dentist::Dentist(std::string name, std::string surname,std::string mail, int phoneNum)
 :Person(name, surname, mail, phoneNum)
 {
+
 }
-
-
 
 Dentist::~Dentist()
 {
@@ -36,3 +35,27 @@ void Dentist::showPatients()
         std::cout<<_patients[i]->getName()<<std::endl;
     }
 }
+
+void Dentist::addRequest (Patient* p)
+{
+    if(!(std::find(_requests.begin(), _requests.end(), p) != _requests.end()))
+        {
+            _requests.push_back(p);
+        }
+   else{
+    std::cout<<"Doraditi ovu funksciju za else"<<std::endl;
+   }
+}
+
+void Dentist::writeMedicalRecord()
+{
+    showPatients();
+
+    _patients[0]->AddMedicalRecord("g", "d", 5, 20, "novi opis");
+    _patients[1]->AddMedicalRecord("g", "d", 5, 20, "novi dva");
+
+}
+
+
+
+

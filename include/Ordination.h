@@ -12,6 +12,7 @@ class Ordination
         void addDentist(Dentist* d);
         void showDentists();
         bool hasDentist(Dentist* d);
+        std::vector <Dentist*> getDentists ();
 
     protected:
 

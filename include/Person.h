@@ -1,6 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 #include <string>
+#include <Medical_Record.h>
 
 
 class Person
@@ -21,6 +22,7 @@ class Person
         std::string _surname;
         std::string _mail;
         int _phoneNum;
+
 
 
 };

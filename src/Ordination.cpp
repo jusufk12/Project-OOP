@@ -38,3 +38,8 @@ bool Ordination::hasDentist(Dentist* d)
 	}
 	return false;
 }
+
+std::vector<Dentist*> Ordination::getDentists ()
+{
+    return _dentists;
+}
