@@ -11,6 +11,9 @@ class Tooth
         void setJaw(std::string jaw);
         void setPosition(int position);
         void setSide(std::string side);
+        std::string getJaw();
+        std::string getSide();
+        int getPosition();
 
     protected:
 

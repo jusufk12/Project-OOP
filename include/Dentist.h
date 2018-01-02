@@ -6,6 +6,7 @@
 #include "Person.h"
 #include <algorithm>
 #include <iostream>
+#include <limits>
 
 class Dentist: public Person
 {
@@ -14,10 +15,12 @@ class Dentist: public Person
         virtual ~Dentist();
         bool hasPatient(Patient* p);
         void addPatient(Patient* p);
+        Patient createNewPatient();
         void showPatients();
         void addRequest(Patient* p);
         void writeMedicalRecord();
-
+        std::string checkParameters(std::string first, std::string second);
+        void savePatientReport();
 
 
 

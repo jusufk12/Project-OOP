@@ -1,0 +1,10 @@
+Medical record for patient: Jusuf Koric
+
+Medical record 1
+	Tooth: upper right 6
+	Price: 260
+
+Medical record 2
+	Tooth: upper right 6
+	Price: 263
+

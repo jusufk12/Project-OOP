@@ -8,6 +8,7 @@ class Person
 {
     public:
         Person(std::string name, std::string surname, std::string mail, int phone);
+        Person();
         virtual ~Person();
         void setName(std::string name);
         void setSurname(std::string surname);

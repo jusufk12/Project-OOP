@@ -8,21 +8,28 @@ class Medical_Record
 {
     public:
         Medical_Record();
+        Medical_Record(int price, std::string description, Tooth* t);
         virtual ~Medical_Record();
         void setPrice(double price);
-        void setDescription(std::string description);
+        void setDescription(char description[]);
         void setTooth(Tooth* t);
         void print();
-        std::string getDescription();
+        char* getDescription();
+        std::string getToothJaw();
+        std::string getToothSide();
+        int getToothPosition();
+        int getPrice();
+
+
 
 
 
     protected:
 
     private:
-        double _price;
+        int _price;
         Tooth* _t;
-        std::string _description;
+        char _description[100];
 
 };
 

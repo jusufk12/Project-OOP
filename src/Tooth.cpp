@@ -29,3 +29,15 @@ void Tooth::setSide(std::string side)
 {
     _side=side;
 }
+std::string Tooth::getJaw()
+{
+    return _jaw;
+}
+std::string Tooth::getSide()
+{
+    return _side;
+}
+int Tooth::getPosition()
+{
+    return _position;
+}

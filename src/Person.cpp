@@ -8,6 +8,10 @@ Person::Person(std::string name, std::string surname, std::string mail, int phon
     _mail=mail;
     _phoneNum=phone;
 }
+Person::Person()
+{
+
+}
 
 Person::~Person()
 {
