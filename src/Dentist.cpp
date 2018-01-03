@@ -209,5 +209,43 @@ void Dentist::savePatientReport()
               _patients[i]->saveMedRecords();
            }
        }
+}
 
+void Dentist::makeAppointment()
+{
+    Schedule s;
+    s.showSchedule();
+    std::cout<<"Enter name of your patient "<<std::endl;
+    std::string name;
+    std::cin>>name;
+    std::cout<<"Enter day (Mon-Fri)"<<std::endl;
+    std::string day;
+    std::cin>>day;
+    std::cout<<"Enter timeslot (9-16)"<<std::endl;
+    int timeslot;
+    std::cin>>timeslot;
+    int _day;
+
+    if (day == "Mon")
+        _day = 1;
+    else if (day == "Tue")
+        _day=2;
+    else if (day == "Wed")
+        _day=3;
+    else if (day == "Thu")
+        _day=4;
+    else if (day == "Fri")
+        _day=5;
+    else{
+        std::cout<<"Invalid Input!"<<std::endl;
+    }
+
+   int _timeslot=timeslot-8;
+
+    bool a = s.addAppointment(name, _timeslot,_day);
+    if(a == false)
+    {
+        std::cout<<"ne radi"<<std::endl;
+    }
+    else{std::cout<<"radi";}
 }

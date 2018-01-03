@@ -38,6 +38,7 @@ int main()
 
     p2.saveMedRecords();
 
+    dentist1.makeAppointment();
 
 
 

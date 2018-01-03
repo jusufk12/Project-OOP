@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
+#include "Schedule.h"
 
 class Dentist: public Person
 {
@@ -21,6 +22,7 @@ class Dentist: public Person
         void writeMedicalRecord();
         std::string checkParameters(std::string first, std::string second);
         void savePatientReport();
+        void makeAppointment();
 
 
 
@@ -30,6 +32,7 @@ class Dentist: public Person
 
         std::vector <Patient*> _patients;
         std::vector <Patient*> _requests;
+        Schedule* _schedule;
 };
 
 #endif // DENTIST_H
