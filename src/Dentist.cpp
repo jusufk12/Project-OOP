@@ -1,11 +1,11 @@
 #include "Dentist.h"
-#include<limits>
+#include <limits>
 
 
-Dentist::Dentist(std::string name, std::string surname,std::string mail, int phoneNum)
+Dentist::Dentist(std::string name, std::string surname,std::string mail, int phoneNum, Schedule* schedule)
 :Person(name, surname, mail, phoneNum)
 {
-
+    _schedule = schedule;
 }
 
 Dentist::~Dentist()
@@ -25,6 +25,8 @@ void Dentist::addPatient (Patient* p)
     if(!hasPatient(p))
     {
          _patients.push_back(p);
+         std::cout<<"Patient successfully added!"<<std::endl;
+         std::cout<<"\n";
     }
    else{
     std::cout<<"Doraditi ovu funksciju za else"<<std::endl;
@@ -47,7 +49,8 @@ Patient Dentist::createNewPatient()
     int phone;
     std::cin>>phone;
     Patient p(name, surname, mail, phone);
-    //addPatient(&p);
+    addPatient(&p);
+    showPatients();
     return p;
 
 
@@ -58,22 +61,48 @@ void Dentist::showPatients()
 {
     for (int i=0; i<_patients.size(); i++)
     {
-        std::cout<<_patients[i]->getName()<<std::endl;
+        std::cout<<_patients[i]->getName()<<" "<<_patients[i]->getSurname()<<std::endl;
     }
 }
 
-void Dentist::addRequest (Patient* p)
-{
-    if(!(std::find(_requests.begin(), _requests.end(), p) != _requests.end()))
-        {
-            _requests.push_back(p);
-        }
-   else{
-    std::cout<<"Doraditi ovu funksciju za else"<<std::endl;
-   }
-}
 
-void Dentist::writeMedicalRecord()
+Patient* Dentist::getPatient()
+{
+    std::string name;
+    std::string surname;
+
+
+    if (_patients.size()>0)
+    {
+       showPatients();
+       std::cout<<"\n";
+       bool patientFound=true;
+       int patientIndex;
+
+       while(patientFound)
+       {
+       std::cout<<"Enter the name of patient."<<std::endl;
+       std::cin>>name;
+       std::cout<<"Enter the surname of patient."<<std::endl;
+       std::cin>>surname;
+
+
+       for (int i=0; i<_patients.size(); i++)
+       {
+           if ((name ==_patients[i]->getName())&&(surname ==_patients[i]->getSurname()))
+               {
+                 patientFound=false;
+                 patientIndex=i;
+               }
+       }
+       if (patientFound == true)
+       {
+           return _patients[patientIndex];
+       }
+
+}}}
+
+Medical_Record* Dentist::writeMedicalRecord()
 {
     std::string name;
     std::string surname;
@@ -117,12 +146,9 @@ void Dentist::writeMedicalRecord()
                patientFound=false;
                patientIndex=_patients.size()-1;
                break;
-
            }
        }
        }
-        //patientIndex=0;
-
 
       std::cout<<"You are going to write medical record for "<<_patients[patientIndex]->getName()<<" "<<_patients[patientIndex]->getSurname()<<std::endl;
       std::cout<<"Enter 'upper' or 'lower' for jaw"<<std::endl;
@@ -159,13 +185,10 @@ void Dentist::writeMedicalRecord()
 
       }
 
-      std::cout<<"Enter description of your service"<<std::endl;
-      char _description[100];
-      std::cin.getline(_description, 100);
+      Tooth t(_jaw, _side, _position);
+      Medical_Record med(_price);
 
-
-      _patients[patientIndex]->AddMedicalRecord(_jaw, _side, _position, _price, _description);
-
+      return &med;
     }
     else
     {
@@ -195,6 +218,7 @@ std::string Dentist::checkParameters(std::string first, std::string second)
 
 void Dentist::savePatientReport()
 {
+    showPatients();
     std::cout<<"Enter name of the patient whose report you want to save"<<std::endl;
     std::string name;
     std::cin>>name;
@@ -202,50 +226,104 @@ void Dentist::savePatientReport()
     std::string surname;
     std::cin>>surname;
 
+    bool found = false;
     for (int i=0; i<_patients.size(); i++)
        {
+           std::cout<< _patients[i]->getName();
+           std::cout<< _patients[i]->getSurname();
            if ((name ==_patients[i]->getName())&&(surname ==_patients[i]->getSurname()))
            {
-              _patients[i]->saveMedRecords();
+              _patients[i]->saveMedRecords("testing1.txt");
+              found = true;
            }
+
        }
+    if (found == true)
+    {
+        std::cout<<"Report successfully created!"<<std::endl;
+    }
+    else{
+        std::cout<<"Patient was not found!"<<std::endl;
+    }
 }
 
 void Dentist::makeAppointment()
 {
-    Schedule s;
-    s.showSchedule();
-    std::cout<<"Enter name of your patient "<<std::endl;
-    std::string name;
-    std::cin>>name;
-    std::cout<<"Enter day (Mon-Fri)"<<std::endl;
-    std::string day;
-    std::cin>>day;
-    std::cout<<"Enter timeslot (9-16)"<<std::endl;
-    int timeslot;
-    std::cin>>timeslot;
-    int _day;
 
-    if (day == "Mon")
-        _day = 1;
-    else if (day == "Tue")
-        _day=2;
-    else if (day == "Wed")
-        _day=3;
-    else if (day == "Thu")
-        _day=4;
-    else if (day == "Fri")
-        _day=5;
-    else{
-        std::cout<<"Invalid Input!"<<std::endl;
-    }
+        _schedule->showSchedule();
+        std::cout<<"Enter name of your patient "<<std::endl;
+        std::string name;
+        std::cin>>name;
+        std::cout<<"Enter day (Mon-Fri)"<<std::endl;
+        std::string day;
+        std::cin>>day;
+        std::cout<<"Enter timeslot (9-16)"<<std::endl;
+        int timeslot;
+        std::cin>>timeslot;
+        int _day;
 
-   int _timeslot=timeslot-8;
+        if (day == "Mon")
+            _day = 1;
+        else if (day == "Tue")
+            _day=2;
+        else if (day == "Wed")
+            _day=3;
+        else if (day == "Thu")
+            _day=4;
+        else if (day == "Fri")
+            _day=5;
+        else{
+            std::cout<<"Invalid Input!"<<std::endl;
+        }
 
-    bool a = s.addAppointment(name, _timeslot,_day);
-    if(a == false)
-    {
-        std::cout<<"ne radi"<<std::endl;
-    }
-    else{std::cout<<"radi";}
+       int _timeslot=timeslot-8;
+
+        bool a = _schedule->addAppointment(name, _timeslot,_day);
+        if(a == false)
+        {
+            std::cout<<"You did not make appointment."<<std::endl;
+        }
+        else
+            {
+                std::cout<<"radi";
+        }
+}
+
+void Dentist::cancelAppointment()
+{
+
+        _schedule->showSchedule();
+        std::cout<<"Enter day when you want to cancel appointment(Mon-Fri)"<<std::endl;
+        std::string day;
+        std::cin>>day;
+        std::cout<<"Enter timeslot (9-16)"<<std::endl;
+        int timeslot;
+        std::cin>>timeslot;
+        int _day;
+
+        if (day == "Mon")
+            _day = 1;
+        else if (day == "Tue")
+            _day=2;
+        else if (day == "Wed")
+            _day=3;
+        else if (day == "Thu")
+            _day=4;
+        else if (day == "Fri")
+            _day=5;
+        else{
+            std::cout<<"Invalid Input!"<<std::endl;
+        }
+
+       int _timeslot=timeslot-8;
+
+        bool a = _schedule->removeAppointment(_timeslot,_day);
+        if(a == false)
+        {
+            std::cout<<"You did not cancel appointment"<<std::endl;
+        }
+        else
+            {
+                std::cout<<"Appointment successfully canceled";
+        }
 }

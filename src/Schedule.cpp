@@ -29,9 +29,6 @@ Schedule::Schedule()
     _table[6][0] = "14:00\t";
     _table[7][0] = "15:00\t";
     _table[8][0] = "16:00\t";
-
-
-
 }
 
 Schedule::~Schedule()
@@ -39,10 +36,17 @@ Schedule::~Schedule()
     //dtor
 }
 
+bool Schedule::AppointmentFree(unsigned timeslot, unsigned day)
+{
+    if(_table[timeslot][day] == "-\t")
+        return true;
+    return false;
+}
+
 bool Schedule::addAppointment(std::string patient, unsigned timeslot, unsigned day)
 {
 
-    if (_table[timeslot][day] != "-\t")
+    if (!AppointmentFree(timeslot,day))
         {
             return false;
         }
@@ -52,9 +56,6 @@ bool Schedule::addAppointment(std::string patient, unsigned timeslot, unsigned d
         showSchedule();
         return true;
     }
-
-
-
 }
 void Schedule::showSchedule()
 {
@@ -67,4 +68,18 @@ void Schedule::showSchedule()
 		std::cout << std::endl;
 	}
 	std::cout << std::endl;
+}
+
+bool Schedule::removeAppointment (unsigned timeslot, unsigned day)
+{
+    if (AppointmentFree(timeslot, day))
+    {
+        return false;
+    }
+    else
+    {
+        _table[timeslot][day]="-\t";
+        showSchedule();
+        return true;
+    }
 }

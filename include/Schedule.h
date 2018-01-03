@@ -10,8 +10,9 @@ class Schedule
     public:
         Schedule();
         virtual ~Schedule();
-        bool addAppointment(std::string patient, unsigned day, unsigned timeslot);
-        bool appointmentFree();
+        bool addAppointment(std::string patient, unsigned timeslot, unsigned day);
+        bool removeAppointment (unsigned timeslot, unsigned day);
+        bool AppointmentFree(unsigned timeslot, unsigned day);
         void showSchedule();
 
     protected:

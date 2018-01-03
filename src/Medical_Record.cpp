@@ -5,10 +5,14 @@ Medical_Record::Medical_Record()
 
 }
 
-Medical_Record::Medical_Record(int price, std::string description, Tooth* t)
+Medical_Record::Medical_Record(int price)
 {
     _price=price;
-    description=description;
+}
+
+Medical_Record::Medical_Record(int price, Tooth* t)
+{
+    _price=price;
     _t=t;
 }
 Medical_Record::~Medical_Record()
@@ -19,26 +23,10 @@ void Medical_Record::setPrice(double price)
 {
     _price=price;
 }
-void Medical_Record::setDescription(char description[])
-{
-     for (int i=0; i < sizeof(description); i++)
-     {
-         _description[i] = description[i];
-     }
-}
+
 void Medical_Record::setTooth(Tooth* t)
 {
     _t=t;
-}
-
-void Medical_Record:: print()
-{
-    std::cout<<_description<<std::endl;
-}
-
-char* Medical_Record::getDescription()
-{
-    return _description;
 }
 
 std::string Medical_Record::getToothJaw()

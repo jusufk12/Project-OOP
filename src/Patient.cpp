@@ -21,32 +21,23 @@ void Patient::showMedRecords()
 {
     for (int i=0; i<_medicalRecords.size(); i++)
     {
-        std::cout<<"Medical record for"<<std::endl;
-        std::cout<<_medicalRecords[i]->getDescription()<<std::endl;
+        std::cout<<"Medical record"<<i+1<<std::endl;
+        std::cout<<_medicalRecords[i]->getPrice()<<std::endl;
     }
 }
 
-void Patient::AddMedicalRecord(std::string jaw, std::string side, int position, double price, char description[])
+void Patient::AddMedicalRecord(Medical_Record* med)
 {
-
-    Medical_Record med;
-    Tooth t;
-    t.setJaw(jaw);
-    t.setSide(side);
-    t.setPosition(position);
-    med.setPrice(price);
-    med.setDescription(description);
-    med.setTooth(&t);
-
-    _medicalRecords.push_back(&med);
-    std::cout<<"\tMedical record for patient "<<getName()<<" "<<getSurname()<<":\n"<<"\tService is done on tooth: "<<jaw<<" "<<side<<" "<<position<<"\n"<<
-    "\tThe price for the service is: "<<price<<"\n"<<"\tNote: "<<description;
+    _medicalRecords.push_back(med);
+    //showMedRecords();
+    //std::cout<<"\tMedical record for patient "<<getName()<<" "<<getSurname()<<":\n"<<"\tService is done on tooth: "<<jaw<<" "<<side<<" "<<position<<"\n"<<
+    //"\tThe price for the service is: "<<price<<"\n";
 
 }
 
-void Patient::saveMedRecords()
+void Patient::saveMedRecords(std::string file_name)
 {
-    std::ofstream myfile ("example.txt");
+    std::ofstream myfile (file_name);
     if (myfile.is_open())
     {
         myfile<<"Medical record for patient: "<<getName()<<" "<<getSurname()<<"\n";
