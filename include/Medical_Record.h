@@ -8,7 +8,6 @@ class Medical_Record
 {
     public:
         Medical_Record();
-        Medical_Record(int price);
         Medical_Record(int price, Tooth* t);
         virtual ~Medical_Record();
         void setPrice(double price);

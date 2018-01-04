@@ -5,10 +5,6 @@ Medical_Record::Medical_Record()
 
 }
 
-Medical_Record::Medical_Record(int price)
-{
-    _price=price;
-}
 
 Medical_Record::Medical_Record(int price, Tooth* t)
 {

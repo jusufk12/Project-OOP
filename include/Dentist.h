@@ -15,17 +15,19 @@ class Dentist: public Person
 {
     public:
         Dentist(std::string name, std::string surname, std::string mail, int phoneNum, Schedule* schedule);
+        Dentist(std::string name, std::string surname, std::string mail, int phoneNum);
+        Dentist();
         virtual ~Dentist();
         bool hasPatient(Patient* p);
         void addPatient(Patient* p);
-        Patient createNewPatient();
+        Patient* createNewPatient();
         void showPatients();
         void writeMedicalRecord();
         std::string checkParameters(std::string first, std::string second);
-        void savePatientReport();
+        void showPatientReport();
         void makeAppointment();
-        Patient* getPatient();
         void cancelAppointment();
+        bool hasAnyPatients();
 
     protected:
 

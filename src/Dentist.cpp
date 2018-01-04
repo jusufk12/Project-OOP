@@ -7,7 +7,15 @@ Dentist::Dentist(std::string name, std::string surname,std::string mail, int pho
 {
     _schedule = schedule;
 }
+Dentist::Dentist(std::string name, std::string surname,std::string mail, int phoneNum)
+:Person(name, surname, mail, phoneNum)
+{
 
+}
+Dentist::Dentist():Person()
+{
+
+}
 Dentist::~Dentist()
 {
 }
@@ -22,19 +30,16 @@ bool Dentist::hasPatient(Patient* p)
 
 void Dentist::addPatient (Patient* p)
 {
-    if(!hasPatient(p))
-    {
+         if(!hasPatient(p))
+         {
          _patients.push_back(p);
-         std::cout<<"Patient successfully added!"<<std::endl;
-         std::cout<<"\n";
-    }
-   else{
-    std::cout<<"Doraditi ovu funksciju za else"<<std::endl;
-   }
-
+         }
+         else{
+            createNewPatient();
+         }
 }
 
-Patient Dentist::createNewPatient()
+Patient* Dentist::createNewPatient()
 {
     std::cout<<"Enter name of your new patient. "<<std::endl;
     std::string name;
@@ -48,59 +53,39 @@ Patient Dentist::createNewPatient()
     std::cout<<"Phone number: "<<std::endl;
     int phone;
     std::cin>>phone;
-    Patient p(name, surname, mail, phone);
-    addPatient(&p);
+    Patient* p=new Patient(name, surname, mail, phone);
+    addPatient(p);
     showPatients();
     return p;
-
-
-
 }
 
 void Dentist::showPatients()
 {
-    for (int i=0; i<_patients.size(); i++)
+    if (_patients.size()==0)
     {
-        std::cout<<_patients[i]->getName()<<" "<<_patients[i]->getSurname()<<std::endl;
+        std::cout<<"You don't have any patients"<<std::endl;
+    }
+    else
+    {
+        std::cout<<"List of your patients:"<<std::endl;
+        for (int i=0; i<_patients.size(); i++)
+        {
+            std::cout<<"\t"<<i+1<<". "<<_patients[i]->getName()<<" "<<_patients[i]->getSurname()<<std::endl;
+        }
     }
 }
 
-
-Patient* Dentist::getPatient()
+bool Dentist::hasAnyPatients()
 {
-    std::string name;
-    std::string surname;
-
-
-    if (_patients.size()>0)
+    if(_patients.size()==0)
     {
-       showPatients();
-       std::cout<<"\n";
-       bool patientFound=true;
-       int patientIndex;
+        return false;
+    }
+    else{
+        return true;
+    }
+}
 
-       while(patientFound)
-       {
-       std::cout<<"Enter the name of patient."<<std::endl;
-       std::cin>>name;
-       std::cout<<"Enter the surname of patient."<<std::endl;
-       std::cin>>surname;
-
-
-       for (int i=0; i<_patients.size(); i++)
-       {
-           if ((name ==_patients[i]->getName())&&(surname ==_patients[i]->getSurname()))
-               {
-                 patientFound=false;
-                 patientIndex=i;
-               }
-       }
-       if (patientFound == true)
-       {
-           return _patients[patientIndex];
-       }
-
-}}}
 
 void Dentist::writeMedicalRecord()
 {
@@ -140,9 +125,9 @@ void Dentist::writeMedicalRecord()
            std::cin>>choice;
            if (choice==2)
            {
-               Patient p;
+               Patient* p;
                p = createNewPatient();
-               addPatient(&p);
+               addPatient(p);
                 //showPatients();
 
                patientFound=false;
@@ -167,7 +152,6 @@ void Dentist::writeMedicalRecord()
 
       while(!((_position > 0) && (_position < 9)))
       {
-
             std::cin >> _position;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
@@ -182,16 +166,13 @@ void Dentist::writeMedicalRecord()
       {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-
             std::cout << "Invalid input.  Try again: "<<std::endl;
-
       }
 
       _patients[patientIndex]->CreateMedRecord(_jaw, _side, _position, _price);
       //Tooth t(_jaw, _side, _position);
       //Medical_Record med(_price);
 
-      //return &med;
     }
     else
     {
@@ -219,10 +200,10 @@ std::string Dentist::checkParameters(std::string first, std::string second)
           return temp;
 }
 
-void Dentist::savePatientReport()
+void Dentist::showPatientReport()
 {
     showPatients();
-    std::cout<<"Enter name of the patient whose report you want to save"<<std::endl;
+    std::cout<<"Enter name of the patient whose report you want to show"<<std::endl;
     std::string name;
     std::cin>>name;
     std::cout<<"Enter surname of the patient"<<std::endl;
@@ -232,20 +213,15 @@ void Dentist::savePatientReport()
     bool found = false;
     for (int i=0; i<_patients.size(); i++)
        {
-           std::cout<< _patients[i]->getName();
-           std::cout<< _patients[i]->getSurname();
            if ((name ==_patients[i]->getName())&&(surname ==_patients[i]->getSurname()))
            {
-              _patients[i]->saveMedRecords("testing1.txt");
+              _patients[i]->showMedRecords();
               found = true;
            }
 
        }
-    if (found == true)
+    if (found == false)
     {
-        std::cout<<"Report successfully created!"<<std::endl;
-    }
-    else{
         std::cout<<"Patient was not found!"<<std::endl;
     }
 }
@@ -318,15 +294,17 @@ void Dentist::cancelAppointment()
             std::cout<<"Invalid Input!"<<std::endl;
         }
 
-       int _timeslot=timeslot-8;
+        int _timeslot=timeslot-8;
 
         bool a = _schedule->removeAppointment(_timeslot,_day);
         if(a == false)
         {
-            std::cout<<"You did not cancel appointment"<<std::endl;
+            std::cout<<"You did not cancel appointment. That timeslot is already free."<<std::endl;
+            std::cout<<"\n";
         }
         else
             {
-                std::cout<<"Appointment successfully canceled";
+                std::cout<<"Appointment successfully canceled.";
+                std::cout<<"\n";
         }
 }
