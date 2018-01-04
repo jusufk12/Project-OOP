@@ -14,7 +14,7 @@ class Patient: public Person
         Patient(std::string name, std::string surname, std::string mail, int phoneNum);
         Patient();
         virtual ~Patient();
-        void AddMedicalRecord(Medical_Record* med);
+        void CreateMedRecord(std::string jaw, std::string side, int position, int price);
         void showMedRecords();
         void saveMedRecords(std::string file_name);
         void addMedRecordInVector(Medical_Record* mr);

@@ -51,6 +51,7 @@ void Ordination::menu()
     int input;
     while (input!=0)
     {
+        //ReadDentists();
             if(_dentists.size() == 0)
             {
                 std::cout<<"There are no dentists in system."<<std::endl;
@@ -77,13 +78,15 @@ void Ordination::menu()
                     addDentist(&dentist1);
                     showDentists();
 
+                    saveDentists(name, surname, mail, phone);
+
                     bool quit=false;
                     while (!quit)
                     {
 
                     std::cout<<"Main menu:  Press number for the option you want to choose"<<std::endl;
                     std::cout<<"\n";
-                    std::cout<<"1. List patients\n 2. Add patient\n 3. Write Medical Record\n 4. Make appointment\n 5. Cancel Appointment"<<std::endl;
+                    std::cout<<"1. List patients\n 2. Add patient\n 3. Write Medical Record\n 4. Make appointment\n 5. Cancel Appointment\n 6. Show Medical Report for patient"<<std::endl;
                     std::cin>>input;
 
                         if (input==0)
@@ -123,9 +126,13 @@ void Ordination::menu()
                         {
                             dentist1.cancelAppointment();
                         }
+                        else if (input==6)
+                        {
+                            dentist1.savePatientReport();
+                        }
                         else
                         {
-                            std::cout<<"Invalid input. Select one of five options."<<std::endl;
+                            std::cout<<"Invalid input. Select one ofCreateMedRecord five options."<<std::endl;
                         }
                      }
                 }
@@ -140,50 +147,100 @@ void Ordination::menu()
                 std::cout<<"Enter your surname"<<std::endl;
                 std::string surname;
                 std::cin>>surname;
+
+                for (int i=0; i<_dentists.size(); i++)
+                {
+                    if((_dentists[i]->getName()==name)&&(_dentists[i]->getSurname()==surname))
+                    {
+                                 bool quit=false;
+                    while (!quit)
+                    {
+                    std::cout<<"Main menu:  Press number for the option you want to choose, press 0 to exit"<<std::endl;
+                    std::cout<<"\n";
+                    std::cout<<" 1. List patients\n 2. Add patient\n 3. Write Medical Record\n 4. Make appointment\n 5. Cancel Appointment\n 6. Show Medical Report for patient"<<std::endl;
+                    std::cin>>input;
+
+                        if (input==0)
+                        {
+                            quit=true;
+                        }
+                        else if(input==1)
+                        {
+                            _dentists[i]->showPatients();
+                        }
+                        else if(input==2)
+                        {
+                            std::cout<<"Enter the name of the patient you want to add."<<std::endl;
+                            std::string n;
+                            std::cin>>n;
+                            std::cout<<"Enter surname"<<std::endl;
+                            std::string s;
+                            std::cin>>s;
+                            std::cout<<"Enter mail"<<std::endl;
+                            std::string m;
+                            std::cin>>m;
+                            std::cout<<"Enter phone number"<<std::endl;
+                            int ph;
+                            std::cin>>ph;
+                            Patient patient1(n,s,m,ph);
+                            _dentists[i]->addPatient(&patient1);
+                        }
+                        else if(input==3)
+                        {
+                            _dentists[i]->writeMedicalRecord();
+                        }
+                        else if(input==4)
+                        {
+                            _dentists[i]->makeAppointment();
+                        }
+                        else if(input==5)
+                        {
+                            _dentists[i]->cancelAppointment();
+                        }
+                        else if (input==6)
+                        {
+                            _dentists[i]->savePatientReport();
+                        }
+                        else
+                        {
+                            std::cout<<"Invalid input. Select one ofCreateMedRecord five options."<<std::endl;
+                        }
+                     }
+                    }
+                }
+
+
             }
 
     }
-
-
-   /* Dentist dentist1("Amina", "sss", "ddd", 1234, &s);
-    Dentist dentist2("Jusuf", "sss", "ddd", 1234, &s);
-
-    addDentist(&dentist1);
-    addDentist(&dentist2);
-
-    Patient p("Kanita", "Koric", "ddd", 1234);
-    dentist1.addPatient(&p);
-    //dentist1.showPatients();
-    //dentist1.addPatient(&p);
-    Patient p2("Amira", "Koric", "ddd", 1234);
-    dentist1.addPatient(&p2);
-    //p2.saveMedRecords();
-
-    Tooth t("upper", "right", 6);
-    Medical_Record med1(260, &t);
-    p2.addMedRecordInVector(&med1);
-
-    Tooth t1("down", "left", 1);
-    Medical_Record med2(263, &t1);
-    //p2.addMedRecordInVector(&med2);
-
-    Patient* p3;
-    p3 = dentist1.getPatient();
-    std::cout<<"Prije"<<std::endl;
-    p3->addMedRecordInVector(&med2);
-    std::cout<<"Prije 2"<<std::endl;
-    p3->showMedRecords();
-    std::cout<<"Pslije"<<std::endl;
-
-    //dentist1.makeAppointment();
-    //dentist1.makeAppointment();
-    Medical_Record* med3;
-    med3 = dentist1.writeMedicalRecord();
-    p2.AddMedicalRecord(med3);
-    p2.showMedRecords();
-    dentist1.savePatientReport();
-    */
 }
+    void Ordination::saveDentists(std::string name,std::string  surname, std::string  email,  int phone)
+    {
+        std::ofstream ofs;
+        ofs.open("dentists.txt", std::ofstream::out | std::ofstream::app);
+        ofs <<name<<" " <<surname<< " "<< email<<" "<<phone<<"\n";
+        ofs.close();
+    }
+
+    void Ordination::ReadDentists()
+    {
+        std::ifstream file;
+        file.open("dentists.txt");
+        if (!file.is_open())
+            std::cout<<"Not opened!"<<std::endl;
+
+        std::string dentistName;
+        std::string dentistSurname;
+        std::string dentistEmail;
+        int dentistPhone;
+    while (file >> dentistName >> dentistSurname >> dentistEmail >> dentistPhone)
+    {
+        Schedule s;
+        Dentist dentist (dentistName, dentistSurname, dentistEmail, dentistPhone, &s);
+        _dentists.push_back(&dentist);
+    }
+    }
+
 
 
 

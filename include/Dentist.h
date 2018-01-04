@@ -20,7 +20,7 @@ class Dentist: public Person
         void addPatient(Patient* p);
         Patient createNewPatient();
         void showPatients();
-        Medical_Record* writeMedicalRecord();
+        void writeMedicalRecord();
         std::string checkParameters(std::string first, std::string second);
         void savePatientReport();
         void makeAppointment();

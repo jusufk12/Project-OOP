@@ -102,7 +102,7 @@ Patient* Dentist::getPatient()
 
 }}}
 
-Medical_Record* Dentist::writeMedicalRecord()
+void Dentist::writeMedicalRecord()
 {
     std::string name;
     std::string surname;
@@ -131,6 +131,8 @@ Medical_Record* Dentist::writeMedicalRecord()
                  patientIndex=i;
                }
        }
+
+
        if (patientFound == true)
        {
            std::cout<<"You don't have that patient. If you want to enter again press 1, if you want to create new patient press 2"<<std::endl;
@@ -185,10 +187,11 @@ Medical_Record* Dentist::writeMedicalRecord()
 
       }
 
-      Tooth t(_jaw, _side, _position);
-      Medical_Record med(_price);
+      _patients[patientIndex]->CreateMedRecord(_jaw, _side, _position, _price);
+      //Tooth t(_jaw, _side, _position);
+      //Medical_Record med(_price);
 
-      return &med;
+      //return &med;
     }
     else
     {

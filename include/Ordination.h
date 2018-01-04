@@ -3,6 +3,7 @@
 #include <vector>
 #include "Dentist.h"
 #include <iostream>
+#include <fstream>
 
 class Ordination
 {
@@ -14,6 +15,8 @@ class Ordination
         bool hasDentist(Dentist* d);
         std::vector <Dentist*> getDentists ();
         void menu();
+        void saveDentists(std::string name,std::string  surname,std::string  email,  int phone);
+        void ReadDentists();
 
 
     protected:
