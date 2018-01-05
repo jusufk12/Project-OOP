@@ -102,6 +102,7 @@ void Ordination::menu()
                         // je li ovdje ide readMedRecords
                         ReadPatients();
                         _dentists[i]->readMedicalRecords();
+                        _dentists[i]->ReloadSchedule();
                         DentistFound=true;
                         bool quit=false;
                         while (!quit)

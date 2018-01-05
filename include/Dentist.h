@@ -31,6 +31,7 @@ class Dentist: public Person
         void saveMedicalRecord(std::string jaw, std::string side, int position, int price, std::string patientName, std::string patientSurname);
         void readMedicalRecords();
         void saveSchedule();
+        void ReloadSchedule();
 
 
 

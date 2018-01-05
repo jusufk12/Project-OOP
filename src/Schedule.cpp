@@ -105,3 +105,8 @@ void Schedule::saveChangesInSchedule(std::string denName, std::string denSurname
     myfile.close();
 }
 
+void Schedule::read_schedule(int _i, int _j, std::string patient_name)
+{
+    _table[_i][_j]=patient_name+"\t";
+}
+

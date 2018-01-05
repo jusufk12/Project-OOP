@@ -16,7 +16,7 @@ class Schedule
         bool AppointmentFree(unsigned timeslot, unsigned day);
         void showSchedule();
         void saveChangesInSchedule(std::string denName, std::string denSurname);
-
+        void read_schedule(int _i, int _j, std::string patient_name);
 
     protected:
 

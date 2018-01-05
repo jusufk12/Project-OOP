@@ -352,6 +352,28 @@ void Dentist:: saveSchedule()
     _schedule->saveChangesInSchedule(den_name, den_surname);
 }
 
+void Dentist::ReloadSchedule()
+{
+        std::string den_name = getName();
+        std::string den_surname = getSurname();
+
+        std::ifstream file;
+        file.open(den_name+"_"+den_surname+"_schedule.txt");
+        if (!file.is_open())
+            std::cout<<"Not opened!"<<std::endl;
+
+
+        int i;
+        int j;
+        std::string name_patient;
+        Schedule* s=new Schedule;
+        while (file >> i >> j >> name_patient)
+        {
+           _schedule->read_schedule(i, j, name_patient);
+        }
+}
+
+
 
 
 
