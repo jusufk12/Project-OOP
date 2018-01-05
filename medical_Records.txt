@@ -2,3 +2,6 @@ lower left 6 20 amina krdzalic
 upper right 4 40 amina krdzalic
 upper left 3 34 amina krdzalic
 upper left 3 23 amina krdzalic
+upper right 4 100 Kanita Krdzalic
+upper left 6 100 Aisa Kvrgic
+upper right 7 10 amina krdzalic

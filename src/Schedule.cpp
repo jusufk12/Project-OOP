@@ -33,7 +33,6 @@ Schedule::Schedule()
 
 Schedule::~Schedule()
 {
-    //dtor
 }
 
 bool Schedule::AppointmentFree(unsigned timeslot, unsigned day)
@@ -101,7 +100,7 @@ void Schedule::saveChangesInSchedule(std::string denName, std::string denSurname
         }
 
     }
-    else std::cout<<"unable, ne radi";
+    else std::cout<<"didn't write";
     myfile.close();
 }
 

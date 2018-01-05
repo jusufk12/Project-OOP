@@ -18,6 +18,13 @@ Dentist::Dentist():Person()
 }
 Dentist::~Dentist()
 {
+    for (int i=0; i<_patients.size(); i++)
+    {
+        delete [] _patients[i];
+        _patients[i]=nullptr;
+    }
+    delete [] _schedule;
+    _schedule=nullptr;
 }
 
 bool Dentist::hasPatient(Patient* p)
@@ -135,7 +142,6 @@ void Dentist::writeMedicalRecord()
            }
        }
        }
-
       std::cout<<"You are going to write medical record for "<<_patients[patientIndex]->getName()<<" "<<_patients[patientIndex]->getSurname()<<std::endl;
       std::cout<<"Enter 'upper' or 'lower' for jaw"<<std::endl;
       std::string _jaw;
@@ -158,7 +164,6 @@ void Dentist::writeMedicalRecord()
                 std::cout<<"Invalid input.  Try again:"<<std::endl;
       }
 
-
       std::cout<<"Enter price of your service"<<std::endl;
       int _price = 0;
       while((!(std::cin >> _price)))
@@ -170,8 +175,6 @@ void Dentist::writeMedicalRecord()
 
       _patients[patientIndex]->CreateMedRecord(_jaw, _side, _position, _price);
       saveMedicalRecord(_jaw,_side,_position,_price,_patients[patientIndex]->getName(),_patients[patientIndex]->getSurname());
-      //Tooth t(_jaw, _side, _position);
-      //Medical_Record med(_price);
 
     }
     else
@@ -235,10 +238,31 @@ void Dentist::makeAppointment()
         std::cin>>name;
         std::cout<<"Enter day (Mon-Fri)"<<std::endl;
         std::string day;
-        std::cin>>day;
+
+       bool corr=true;
+        while(corr)
+        {
+            if(day=="Mon" || day=="Tue" || day=="Wed" || day=="Thu" || day=="Fri")
+                {
+                    corr=false;
+                }
+            else
+                {
+                std::cin>>day;
+                std::cout<<"Incorrect input, try again."<<std::endl;
+                }
+        }
+
         std::cout<<"Enter timeslot (9-16)"<<std::endl;
         int timeslot;
-        std::cin>>timeslot;
+        while(!((timeslot > 8) && (timeslot < 17)))
+      {
+            std::cin >> timeslot;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            if (!((timeslot > 8) && (timeslot < 17)))
+                std::cout<<"Invalid input.  Try again:"<<std::endl;
+      }
         int _day;
 
         if (day == "Mon")
@@ -260,13 +284,12 @@ void Dentist::makeAppointment()
         bool a = _schedule->addAppointment(name, _timeslot,_day);
         if(a == false)
         {
-            std::cout<<"You did not make appointment."<<std::endl;
+            std::cout<<"You did not make appointment. The timeslot is not free."<<std::endl;
         }
         else
             {
                 saveSchedule();
         }
-
 }
 
 void Dentist::cancelAppointment()
@@ -275,10 +298,31 @@ void Dentist::cancelAppointment()
         _schedule->showSchedule();
         std::cout<<"Enter day when you want to cancel appointment(Mon-Fri)"<<std::endl;
         std::string day;
-        std::cin>>day;
+        bool corr=true;
+        while(corr)
+        {
+            if(day=="Mon" || day=="Tue" || day=="Wed" || day=="Thu" || day=="Fri")
+                {
+                    corr=false;
+                }
+            else
+                {
+                std::cin>>day;
+                std::cout<<"Incorrect input, try again."<<std::endl;
+                }
+        }
+
         std::cout<<"Enter timeslot (9-16)"<<std::endl;
         int timeslot;
-        std::cin>>timeslot;
+        while(!((timeslot > 8) && (timeslot < 17)))
+      {
+            std::cin >> timeslot;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+            if (!((timeslot > 8) && (timeslot < 17)))
+                std::cout<<"Invalid input.  Try again:"<<std::endl;
+      }
+
         int _day;
 
         if (day == "Mon")
@@ -309,6 +353,11 @@ void Dentist::cancelAppointment()
                 std::cout<<"\n";
                 saveSchedule();
         }
+}
+
+void Dentist::showDentistSchedule()
+{
+    _schedule->showSchedule();
 }
 
 void Dentist::saveMedicalRecord(std::string jaw, std::string side, int position, int price, std::string patientName, std::string patientSurname)
@@ -367,6 +416,7 @@ void Dentist::ReloadSchedule()
         int j;
         std::string name_patient;
         Schedule* s=new Schedule;
+        _schedule=s;
         while (file >> i >> j >> name_patient)
         {
            _schedule->read_schedule(i, j, name_patient);

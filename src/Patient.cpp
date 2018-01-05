@@ -14,7 +14,11 @@ Patient::Patient():Person()
 
 Patient::~Patient()
 {
-    //dtor
+    for (int i=0; i<_medicalRecords.size(); i++)
+    {
+        delete [] _medicalRecords[i];
+        _medicalRecords[i]=nullptr;
+    }
 }
 
 void Patient::showMedRecords()

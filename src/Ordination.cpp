@@ -8,6 +8,11 @@ Ordination::Ordination()
 
 Ordination::~Ordination()
 {
+    for (int i=0; i<_dentists.size(); i++)
+    {
+        delete [] _dentists[i];
+        _dentists[i]=nullptr;
+    }
 }
 
 void Ordination::addDentist(Dentist* d)
@@ -109,7 +114,7 @@ void Ordination::menu()
                         {
                         std::cout<<"Main menu:  Press number for the option you want to choose, press 0 to exit"<<std::endl;
                         std::cout<<"\n";
-                        std::cout<<" 1. List patients\n 2. Add patient\n 3. Write Medical Record\n 4. Make appointment\n 5. Cancel Appointment\n 6. Show Medical Report for patient"<<std::endl;
+                        std::cout<<" 1. List patients\n 2. Add patient\n 3. Write Medical Record\n 4. Make appointment\n 5. Cancel Appointment\n 6. Show Medical Report for patient\n 7. Show schedule"<<std::endl;
                         std::cin>>input;
 
                             if (input==0)
@@ -156,6 +161,10 @@ void Ordination::menu()
                             else if (input==6)
                             {
                                 _dentists[i]->showPatientReport();
+                            }
+                            else if (input==7)
+                            {
+                                _dentists[i]->showDentistSchedule();
                             }
                             else
                             {
