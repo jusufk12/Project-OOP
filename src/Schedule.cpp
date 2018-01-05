@@ -83,3 +83,25 @@ bool Schedule::removeAppointment (unsigned timeslot, unsigned day)
         return true;
     }
 }
+
+void Schedule::saveChangesInSchedule(std::string denName, std::string denSurname)
+{
+    std::ofstream myfile (denName+"_"+denSurname+"_schedule.txt");
+    if (myfile.is_open())
+    {
+        for (int x = 1; x <9 ; ++x)
+        {
+            for (int y = 1; y < 6; ++y)
+            {
+                if (_table[x][y]!="-\t")
+                {
+                    myfile<<x<<" "<<y<<" "<<_table[x][y];
+                }
+            }
+        }
+
+    }
+    else std::cout<<"unable, ne radi";
+    myfile.close();
+}
+

@@ -44,7 +44,7 @@ void Ordination::menu()
     int input;
     Schedule s;
     ReadDentists();
-    ReadPatients();
+
     while (input!=0)
     {
         std::cout<<"Enter 1 to register new dentist, enter 2 to choose one of the listed dentists."<<std::endl;
@@ -98,6 +98,10 @@ void Ordination::menu()
                 {
                     if((_dentists[i]->getName()==name)&&(_dentists[i]->getSurname()==surname))
                     {
+                        //dodati readAppointments void ReadAppointments(name, surname);
+                        // je li ovdje ide readMedRecords
+                        ReadPatients();
+                        _dentists[i]->readMedicalRecords();
                         DentistFound=true;
                         bool quit=false;
                         while (!quit)
@@ -205,6 +209,8 @@ void Ordination::menu()
             _dentists.push_back(d);
         }
     }
+
+    //void Ordination::ReadAppointments(name, surname)
 
     void Ordination::ReadPatients()
     {

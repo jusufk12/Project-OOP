@@ -28,6 +28,11 @@ class Dentist: public Person
         void makeAppointment();
         void cancelAppointment();
         bool hasAnyPatients();
+        void saveMedicalRecord(std::string jaw, std::string side, int position, int price, std::string patientName, std::string patientSurname);
+        void readMedicalRecords();
+        void saveSchedule();
+
+
 
     protected:
 

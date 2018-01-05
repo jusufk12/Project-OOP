@@ -49,6 +49,15 @@ void Patient::CreateMedRecord(std::string _jaw, std::string _side, int _position
 
 }
 
+void Patient::RealoadMedicalRecord(std::string jaw, std::string side, int position, int price)
+{
+    Tooth* t=new Tooth(jaw, side, position);
+    Medical_Record* med=new Medical_Record(price, t);
+    _medicalRecords.push_back(med);
+}
+
+
+
 void Patient::saveMedRecords(std::string file_name)
 {
     std::ofstream myfile (file_name);

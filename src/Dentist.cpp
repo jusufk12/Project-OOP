@@ -125,10 +125,9 @@ void Dentist::writeMedicalRecord()
            std::cin>>choice;
            if (choice==2)
            {
-               Patient* p;
+               Patient* p=new Patient;
                p = createNewPatient();
                addPatient(p);
-                //showPatients();
 
                patientFound=false;
                patientIndex=_patients.size()-1;
@@ -170,6 +169,7 @@ void Dentist::writeMedicalRecord()
       }
 
       _patients[patientIndex]->CreateMedRecord(_jaw, _side, _position, _price);
+      saveMedicalRecord(_jaw,_side,_position,_price,_patients[patientIndex]->getName(),_patients[patientIndex]->getSurname());
       //Tooth t(_jaw, _side, _position);
       //Medical_Record med(_price);
 
@@ -264,8 +264,9 @@ void Dentist::makeAppointment()
         }
         else
             {
-                std::cout<<"radi";
+                saveSchedule();
         }
+
 }
 
 void Dentist::cancelAppointment()
@@ -306,5 +307,51 @@ void Dentist::cancelAppointment()
             {
                 std::cout<<"Appointment successfully canceled.";
                 std::cout<<"\n";
+                saveSchedule();
         }
 }
+
+void Dentist::saveMedicalRecord(std::string jaw, std::string side, int position, int price, std::string patientName, std::string patientSurname)
+{
+        std::ofstream ofs;
+        ofs.open("medical_Records.txt", std::ofstream::out | std::ofstream::app);
+        ofs <<jaw<<" " <<side<< " "<< position<<" "<<price<< " "<< patientName<<" "<<patientSurname<<"\n";
+        ofs.close();
+}
+
+void Dentist::readMedicalRecords()
+{
+    std::ifstream file;
+    file.open("medical_Records.txt");
+    if (!file.is_open())
+        std::cout<<"Didn't load any data for medical records."<<std::endl;
+
+    std::string jaw;
+    std::string side;
+    std::string patientName;
+    std::string patientSurname;
+    int position;
+    int price;
+
+    while (file >> jaw >> side >> position >> price >> patientName >> patientSurname)
+    {
+        for (int i = 0; i < _patients.size(); i++)
+        {
+            if ((_patients[i]->getName() == patientName) && (_patients[i]->getSurname() == patientSurname))
+            {
+                _patients[i]->RealoadMedicalRecord(jaw, side, position, price);
+            }
+        }
+    }
+}
+
+void Dentist:: saveSchedule()
+{
+    std::string den_name = getName();
+    std::string den_surname = getSurname();
+    _schedule->saveChangesInSchedule(den_name, den_surname);
+}
+
+
+
+

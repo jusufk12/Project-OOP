@@ -18,6 +18,7 @@ class Patient: public Person
         void showMedRecords();
         void saveMedRecords(std::string file_name);
         void addMedRecordInVector(Medical_Record* mr);
+        void RealoadMedicalRecord(std::string jaw, std::string side, int position, int price);
 
 
     protected:

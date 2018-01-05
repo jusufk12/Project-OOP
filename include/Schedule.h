@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 
 class Schedule
@@ -14,6 +15,8 @@ class Schedule
         bool removeAppointment (unsigned timeslot, unsigned day);
         bool AppointmentFree(unsigned timeslot, unsigned day);
         void showSchedule();
+        void saveChangesInSchedule(std::string denName, std::string denSurname);
+
 
     protected:
 
